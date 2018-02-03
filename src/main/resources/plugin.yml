@@ -1,6 +1,6 @@
 name: EssentialsNK
-version: "1.0.9"
-api: ["1.0.0"]
+version: "1.1.0"
+api: ["1.0.5"]
 author: Scallop
 description: EssentialsNK
 main: cn.yescallop.essentialsnk.EssentialsNK
@@ -36,15 +36,9 @@ permissions:
   default: op
  essentialsnk.feed.others:
   default: op
- essentialsnk.fly:
-  default: op
- essentialsnk.fly.others:
-  default: op
  essentialsnk.gamemode:
   default: op
  essentialsnk.gamemode.others:
-  default: op
- essentialsnk.gamerule:
   default: op
  essentialsnk.getpos:
   default: true
