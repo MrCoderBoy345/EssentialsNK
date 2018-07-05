@@ -6,9 +6,10 @@ import cn.nukkit.level.particle.HeartParticle;
 import cn.nukkit.utils.TextFormat;
 import cn.yescallop.essentialsnk.EssentialsAPI;
 import cn.yescallop.essentialsnk.command.CommandBase;
+import me.onebone.economyapi.EconomyAPI;
 
 public class HealCommand extends CommandBase {
-
+    private EconomyAPI econAPI;
     public HealCommand(EssentialsAPI api) {
         super("heal", api);
     }
@@ -38,9 +39,17 @@ public class HealCommand extends CommandBase {
                 return false;
             }
         }
+        double price = 500;
+        econAPI = EconomyAPI.getInstance();
+        if (econAPI.myMoney(player) < price){
+            player.sendMessage(TextFormat.RED + "not enough money");
+            return false;
+        }
         player.heal(player.getMaxHealth() - player.getHealth());
         player.getLevel().addParticle(new HeartParticle(player.add(0, 2), 4));
         player.sendMessage(lang.translateString("commands.heal.success"));
+        sender.sendMessage(TextFormat.RED + "-" + econAPI.getMonetaryUnit() + price);
+        econAPI.reduceMoney(player, price);
         if (sender != player) {
             sender.sendMessage(lang.translateString("commands.heal.success.other", player.getDisplayName()));
         }

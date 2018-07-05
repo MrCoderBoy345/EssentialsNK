@@ -6,9 +6,10 @@ import cn.nukkit.utils.TextFormat;
 import cn.yescallop.essentialsnk.EssentialsAPI;
 import cn.yescallop.essentialsnk.TPRequest;
 import cn.yescallop.essentialsnk.command.CommandBase;
+import me.onebone.economyapi.EconomyAPI;
 
 public class TPAcceptCommand extends CommandBase {
-
+    private EconomyAPI econAPI;
     public TPAcceptCommand(EssentialsAPI api) {
         super("tpaccept", api);
         this.setAliases(new String[]{"tpyes"});
@@ -56,7 +57,11 @@ public class TPAcceptCommand extends CommandBase {
         } else {
             to.teleport(from);
         }
+        econAPI = EconomyAPI.getInstance();
+        double price = 25;
         api.removeTPRequestBetween(from, to);
+        sender.sendMessage(TextFormat.RED + "-" + econAPI.getMonetaryUnit() + price);
+        econAPI.reduceMoney(to, price);
         return true;
     }
 }

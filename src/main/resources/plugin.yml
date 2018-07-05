@@ -15,7 +15,7 @@ permissions:
  essentialsnk.broadcast:
   default: op
  essentialsnk.burn:
-  default: op
+  default: true
  essentialsnk.clearinventory:
   default: op
  essentialsnk.clearinventory.others:
@@ -33,7 +33,7 @@ permissions:
  essentialsnk.extinguish.others:
   default: op
  essentialsnk.feed:
-  default: op
+  default: true
  essentialsnk.feed.others:
   default: op
  essentialsnk.fly:
@@ -49,7 +49,7 @@ permissions:
  essentialsnk.getpos.others:
   default: op
  essentialsnk.heal:
-  default: op
+  default: true
  essentialsnk.heal.others:
   default: op
  essentialsnk.home:
@@ -57,11 +57,11 @@ permissions:
  essentialsnk.itemdb:
   default: true
  essentialsnk.jump:
-  default: op
+  default: true
  essentialsnk.kickall:
   default: op
  essentialsnk.lightning:
-  default: op
+  default: true
  essentialsnk.more:
   default: op
  essentialsnk.mute:
@@ -71,11 +71,11 @@ permissions:
  essentialsnk.realname:
   default: op
  essentialsnk.repair:
-  default: op
+  default: true
  essentialsnk.repair.all:
-  default: op
+  default: true
  essentialsnk.repair.armor:
-  default: op
+  default: true
  essentialsnk.sethome:
   default: true
  essentialsnk.setwarp:
@@ -93,7 +93,7 @@ permissions:
  essentialsnk.sudo:
   default: op
  essentialsnk.top:
-  default: op
+  default: true
  essentialsnk.tpa:
   default: true
  essentialsnk.tpaall:

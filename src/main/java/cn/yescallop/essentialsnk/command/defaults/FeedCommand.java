@@ -6,9 +6,10 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.TextFormat;
 import cn.yescallop.essentialsnk.EssentialsAPI;
 import cn.yescallop.essentialsnk.command.CommandBase;
+import me.onebone.economyapi.EconomyAPI;
 
 public class FeedCommand extends CommandBase {
-
+    private EconomyAPI econAPI;
     public FeedCommand(EssentialsAPI api) {
         super("feed", api);
         this.setAliases(new String[]{"eat"});
@@ -39,10 +40,18 @@ public class FeedCommand extends CommandBase {
                 return false;
             }
         }
+        double price = 200;
+        econAPI = EconomyAPI.getInstance();
+        if (econAPI.myMoney(player) < price){
+            player.sendMessage(TextFormat.RED + "not enough money");
+            return false;
+        }
         PlayerFood foodData = player.getFoodData();
         foodData.setLevel(foodData.getMaxLevel());
         foodData.sendFoodLevel();
         player.sendMessage(lang.translateString("commands.feed.success"));
+        sender.sendMessage(TextFormat.RED + "-" + econAPI.getMonetaryUnit() + price);
+        econAPI.reduceMoney(player, price);
         if (sender != player) {
             sender.sendMessage(lang.translateString("commands.feed.success.other", player.getDisplayName()));
         }

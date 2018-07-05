@@ -6,9 +6,10 @@ import cn.nukkit.level.Position;
 import cn.nukkit.utils.TextFormat;
 import cn.yescallop.essentialsnk.EssentialsAPI;
 import cn.yescallop.essentialsnk.command.CommandBase;
+import me.onebone.economyapi.EconomyAPI;
 
 public class LightningCommand extends CommandBase {
-
+    private EconomyAPI econAPI;
     public LightningCommand(EssentialsAPI api) {
         super("lightning", api);
         this.setAliases(new String[]{"strike", "smite", "thor", "shock"});
@@ -40,8 +41,16 @@ public class LightningCommand extends CommandBase {
             sender.sendMessage(TextFormat.RED + lang.translateString("commands.lightning.unreachable"));
             return false;
         }
+        double price = 200;
+        econAPI = EconomyAPI.getInstance();
+        if (econAPI.myMoney(player) < price){
+            player.sendMessage(TextFormat.RED + "not enough money");
+            return false;
+        }
         api.strikeLighting(pos);
         sender.sendMessage(lang.translateString("commands.lightning.success"));
+        sender.sendMessage(TextFormat.RED + "-" + econAPI.getMonetaryUnit() + price);
+        econAPI.reduceMoney(player, price);
         return true;
     }
 }

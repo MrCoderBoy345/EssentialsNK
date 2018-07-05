@@ -5,9 +5,10 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.TextFormat;
 import cn.yescallop.essentialsnk.EssentialsAPI;
 import cn.yescallop.essentialsnk.command.CommandBase;
+import me.onebone.economyapi.EconomyAPI;
 
 public class BurnCommand extends CommandBase {
-
+    private EconomyAPI econAPI;
     public BurnCommand(EssentialsAPI api) {
         super("burn", api);
     }
@@ -36,8 +37,17 @@ public class BurnCommand extends CommandBase {
             sender.sendMessage(TextFormat.RED + lang.translateString("commands.generic.number.invalidinteger", args[1]));
             return false;
         }
+        Player playersender =(Player) sender;
+        double price = (double) time*50;
+        econAPI = EconomyAPI.getInstance();
+        if (econAPI.myMoney(playersender) < price){
+            player.sendMessage(TextFormat.RED + "not enough money");
+            return false;
+        }
         player.setOnFire(time);
         sender.sendMessage(lang.translateString("commands.burn.success", player.getDisplayName()));
+        sender.sendMessage(TextFormat.RED + "-" + econAPI.getMonetaryUnit() + price);
+        econAPI.reduceMoney(playersender, price);
         return true;
     }
 }
